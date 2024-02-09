@@ -32,6 +32,7 @@ class Api::V1::PlayController < ApplicationController
   def reset_game
     active_game = Game.find_by(id: session[:game_id])
     active_game.update(status: 'end') if active_game.present?
+    session[:game_id] = nil
 
     render json: active_game, status: 200
   end
@@ -52,16 +53,15 @@ class Api::V1::PlayController < ApplicationController
 
     if [:win, :draw].include?(status)
       Game.find(session[:game_id]).update(status: 'end', winner: (status == :win ? player_name : "DRAW"))
+      session[:game_id] = nil
+      return render json: { status: status, log: new_log, combination: combination }, status: 200
     end
 
-    return render json: { status: status, log: new_log, combination: combination }, status: 200 if [:win, :draw].include?(status)
     return render json: { status: 'play', log: new_log }, status: 201
   end
 
   private
     def is_end_or_winning?
-      return [:draw, nil] if GameLog.where(game_id: session[:game_id]).count == Api::V1::PlayController::BOXES_COUNT
-
       Api::V1::PlayController::WIN_COMBINATION.each do |combination|
         logs = GameLog.where(game_id: session[:game_id], position: combination)
         if logs.length == 3
@@ -69,6 +69,7 @@ class Api::V1::PlayController < ApplicationController
         end
       end
 
+      return [:draw, nil] if GameLog.where(game_id: session[:game_id]).count == Api::V1::PlayController::BOXES_COUNT
       return [:end, nil]
     end
 

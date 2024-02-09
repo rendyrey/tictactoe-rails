@@ -62,6 +62,8 @@ const reset = () => {
         err.status = response.status
         throw err
       }
+
+      return response.json()
     })
     .then(data => {
       location.reload()
