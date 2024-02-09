@@ -1,6 +1,6 @@
-# README
+# TIC TAC TOE WEB GAME WITH RAILS
 
-Tic Tac Toe Game built with Rails
+version: 1.0.0 by Rendy Reynaldy A.
 
 ## Features
 - Both Player are Human/User Input
