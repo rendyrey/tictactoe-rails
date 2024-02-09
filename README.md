@@ -1,24 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Tic Tac Toe Game built with Rails
 
-Things you may want to cover:
+## Features
+- Both Player are Human/User Input
+- Users can input their names
+- Leaderboards for 10 latest games
+- Game state are saved for 7 days in session if the browser closed. So, the game will continue even though the browser closed or refresh accidentally
+- All movements are logs in the database
+- All movements, winning or draw state are checked in the backend logic
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Tech Used
+- [Ruby on Rails](https://rubyonrails.org/)
+- [PostgreSQL](https://www.postgresql.org/)
