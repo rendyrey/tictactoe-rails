@@ -20,6 +20,10 @@ version: 1.0.0 by Rendy Reynaldy A.
 
 ## Installation
 - Download or clone this repository
+- Go to project root directory & run this command for installing dependencies:
+```sh
+bundle install
+```
 - Adjust the database config in:
 ```sh
 config/database.yml
