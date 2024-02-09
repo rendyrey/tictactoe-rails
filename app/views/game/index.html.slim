@@ -1,0 +1,45 @@
+
+doctype html
+html
+  head
+    title Tic Tac Toe by Rendy
+    = csrf_meta_tag
+    / = javascript_importmap_tags
+    / = stylesheet_link_tag "main"
+  body
+    #game-screen.center data-session="#{@active_game&.id}"
+      h1.text-center#turn data-active-turn="#{@active_turn}"
+        - if @active_game.present?
+          = "#{@active_turn} Turn Now"
+        - else
+          = "Tic Tac Toe Game"
+      table.center.board
+        - for i in 0..8 do
+          - if i % 3 == 0
+            tr
+          td
+            button.cell type="button" data-position="#{i}" id="cell#{i}"
+              = @game_logs&.find { |log| log.position == i }&.symbol
+      button#restart type="button" Reset
+      button#end-turn type="button" End Turn
+      table.leaderboards 
+        tr
+          td
+            h2.text-center
+              = "Players Now:"
+            h3#player1-name.text-center
+              = "P1: #{@active_game&.first_player_name} (X)"
+            h3#player2-name.text-center
+              = "P2: #{@active_game&.second_player_name} (O)"
+          td
+            p
+              = "10 Latest Game"
+              - @top_ten_games.reverse.each_with_index do |game, index|
+                p.list = "#{index+1}. #{game.first_player_name} vs #{game.second_player_name} | Winner: #{game.winner}"
+
+  = javascript_import_module_tag 'sweetalert2.all'
+  = javascript_import_module_tag 'main'
+
+
+
+  
